@@ -20,9 +20,29 @@ public class Sugar : MonoBehaviour {
 
 	void OnCollisionEnter2D( Collision2D colisor ) {
 
+		bool colisãoInvalida = false;
 		Vector2 normal = colisor.contacts[0].normal;
-		Direction = Vector2.Reflect( Direction, normal );
-		Direction.Normalize();
+		Xicara xicara = colisor.transform.GetComponent<Xicara>();
+		Parede parede = colisor.transform.GetComponent<Parede>();
 
+		if (xicara != null) { // Se existir o componente Xicara no gameObject com o qual o açúcar colidiu.
+			if (normal != Vector2.up) {
+				//colisãoInvalida = true;
+			}
+		} else if (parede != null) {
+			if (normal == Vector2.up) {
+				colisãoInvalida = true;
+			}
+		} else {
+			colisãoInvalida = false;
+			Destroy( colisor.gameObject );
+		}
+
+		if ( !colisãoInvalida ) {
+			Direction = Vector2.Reflect( Direction, normal );
+			Direction.Normalize();
+		} else {
+			GerenciadorDoGame.loadLevel("Fase 1");
+		}
 	}
 }
