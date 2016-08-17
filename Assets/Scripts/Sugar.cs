@@ -31,7 +31,8 @@ public class Sugar : MonoBehaviour {
             if (normal != Vector2.up) {
 				//colisãoInvalida = true;
 			} else {
-                GameObject particulas = (GameObject) Instantiate(ParticulaCafé, colisor.transform.position, Quaternion.identity);
+                Vector3 posParCoffe = new Vector3(colisor.transform.position.x, colisor.transform.position.y + 1, colisor.transform.position.z);
+                GameObject particulas = (GameObject) Instantiate(ParticulaCafé, posParCoffe, Quaternion.identity);
                 ParticleSystem componenteParticulas = particulas.GetComponent<ParticleSystem>();
                 Destroy(particulas, componenteParticulas.duration + componenteParticulas.startLifetime);
             }
