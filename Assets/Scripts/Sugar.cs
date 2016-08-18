@@ -48,7 +48,7 @@ public class Sugar : MonoBehaviour {
 			Destroy( colisor.gameObject ); //destroy prato
 
             //starta particula do prato
-            Vector3 posParPrato = new Vector3(colisor.transform.position.x, colisor.transform.position.y, colisor.transform.position.z);
+            Vector3 posParPrato = new Vector3(colisor.transform.position.x + 1, colisor.transform.position.y, colisor.transform.position.z);
             ParticulaPrato.transform.position = posParPrato;
             ParticleSystem componenteParticulas = ParticulaPrato.GetComponent<ParticleSystem>();
             componenteParticulas.Play();
