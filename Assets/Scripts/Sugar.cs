@@ -6,9 +6,10 @@ public class Sugar : MonoBehaviour {
 	public Vector3 Direction;
 	public float Speed;
     public GameObject ParticulaCafé;
+    public GameObject ParticulaPrato;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
 		Direction.Normalize(); // equivalente a fazer a Direção = Direção.normalized;
 	}
 	
@@ -31,10 +32,11 @@ public class Sugar : MonoBehaviour {
             if (normal != Vector2.up) {
 				//colisãoInvalida = true;
 			} else {
+                //starta gotas de café
                 Vector3 posParCoffe = new Vector3(colisor.transform.position.x, colisor.transform.position.y + 1, colisor.transform.position.z);
-                GameObject particulas = (GameObject) Instantiate(ParticulaCafé, posParCoffe, Quaternion.identity);
-                ParticleSystem componenteParticulas = particulas.GetComponent<ParticleSystem>();
-                Destroy(particulas, componenteParticulas.duration + componenteParticulas.startLifetime);
+                ParticulaCafé.transform.position = posParCoffe;
+                ParticleSystem componenteParticulas = ParticulaCafé.GetComponent<ParticleSystem>();
+                componenteParticulas.Play();
             }
 
 		} else if (parede != null) {
@@ -43,13 +45,19 @@ public class Sugar : MonoBehaviour {
 			}
 		} else {
 			colisãoInvalida = false;
-			Destroy( colisor.gameObject );
-		}
+			Destroy( colisor.gameObject ); //destroy prato
+
+            //starta particula do prato
+            Vector3 posParPrato = new Vector3(colisor.transform.position.x, colisor.transform.position.y, colisor.transform.position.z);
+            ParticulaPrato.transform.position = posParPrato;
+            ParticleSystem componenteParticulas = ParticulaPrato.GetComponent<ParticleSystem>();
+            componenteParticulas.Play();
+        }
 
 		if ( !colisãoInvalida ) {
 			Direction = Vector2.Reflect( Direction, normal );
 			Direction.Normalize();
-		} else {
+        } else {
 			GerenciadorDoGame.loadLevel("Fase 1");
 		}
 	}
