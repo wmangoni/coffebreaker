@@ -18,6 +18,8 @@ public class GeradorDeBlocos : MonoBehaviour {
 		int colunas;
 		
 		ColetarInformaçõesDoBloco( larguraDoBloco, out larguraDaTela, out alturaDaTela, out colunas, out multiplicadorDaLargura );
+
+        GerenciadorDoGame.numeroTotalDeBlocos = linhas * colunas;
 		
 		for (int i = 0; i < linhas; i++) {
 			for (int j = 0; j < colunas; j++) {

@@ -17,6 +17,14 @@ public class Sugar : MonoBehaviour {
 	void Update () {
 
 		transform.position += Direction * Speed * Time.deltaTime;
+
+        //if (transform.position.x <= -10.0)
+        //{
+            //transform.position = new Vector3( 10, transform.position.y, transform.position.z );
+        //} else if (transform.position.x >= 10.0)
+        //{
+            //transform.position = new Vector3( -10, transform.position.y, transform.position.z );
+        //}
 	
 	}
 
@@ -46,6 +54,7 @@ public class Sugar : MonoBehaviour {
 		} else {
 			colisãoInvalida = false;
 			Destroy( colisor.gameObject ); //destroy prato
+            GerenciadorDoGame.numeroDeBlocosDestruidos++;
 
             //starta particula do prato
             Vector3 posParPrato = new Vector3(colisor.transform.position.x + 1, colisor.transform.position.y, colisor.transform.position.z);
@@ -58,7 +67,8 @@ public class Sugar : MonoBehaviour {
 			Direction = Vector2.Reflect( Direction, normal );
 			Direction.Normalize();
         } else {
-			GerenciadorDoGame.loadLevel("Fase 1");
-		}
+            GerenciadorDoGame.instance.FinalizaGame();
+            //GerenciadorDoGame.loadLevel("Fase 1");
+        }
 	}
 }
